@@ -1,12 +1,18 @@
 {
   "name": "electron-google-oauth",
   "description": "Google api access token in electron",
-  "keywords": ["google api", "access token", "electron", "oauth", "oauth2"],
+  "keywords": [
+    "google api",
+    "access token",
+    "electron",
+    "oauth",
+    "oauth2"
+  ],
   "repository": "https://github.com/parro-it/electron-google-oauth.git",
   "bugs": {
     "url": "https://github.com/parro-it/electron-google-oauth/issues"
   },
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "dist/index.js",
   "dependencies": {
     "babel-runtime": "^5.8.20"
