@@ -1,6 +1,7 @@
 {
   "name": "electron-google-oauth",
-  "description": "",
+  "description": "Google api access token in electron",
+  "keywords": ["google api", "access token", "electron", "oauth", "oauth2"],
   "repository": "https://github.com/parro-it/electron-google-oauth.git",
   "bugs": {
     "url": "https://github.com/parro-it/electron-google-oauth/issues"
