@@ -12,7 +12,33 @@ npm install --save electron-google-oauth
 ## Usage
 
 ```javascript
-  import electronGoogleOauth from 'electron-google-oauth'
+  import electronGoogleOauth from 'electron-google-oauth';
+  import BrowserWindow from 'browser-window';
+
+  // require BrowserWindow class all argument
+  // to avoid strict coupling with electron
+  const googleOauth = electronGoogleOauth(BrowserWindow);
+
+  ( async () => {
+
+    // retrieve  authorization code only
+    const authCode = await googleOauth.getAuthorizationCode(
+      ['https://www.google.com/m8/feeds'],
+      'your-client-id',
+      'your-client-secret'
+    );
+    console.dir(authCode);
+
+    // retrieve access token and refresh token
+    const result = await googleOauth.getAccessToken(
+      ['https://www.google.com/m8/feeds'],
+      'your-client-id',
+      'your-client-secret'
+    );
+    console.dir(result);
+
+  })();
+
 ```
 
 ## License
