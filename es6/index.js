@@ -18,9 +18,10 @@ function getAuthenticationUrl(scopes, clientId, clientSecret) {
 }
 
 
-function authorizeApp(url, BrowserWindow, BrowserWindowParams) {
+function authorizeApp(url, BrowserWindow, browserWindowParams) {
   return new Promise( (resolve, reject) => {
-    const win = new BrowserWindow(BrowserWindowParams);
+
+    const win = new BrowserWindow(browserWindowParams || {'use-content-size': true });
 
     win.loadUrl(url);
 
