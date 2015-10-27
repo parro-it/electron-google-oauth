@@ -50,8 +50,9 @@ node_modules
 npm-debug.log
 
 
-dist
+
 dist_test
+dist
 private
 init
 

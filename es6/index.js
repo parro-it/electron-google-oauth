@@ -18,11 +18,10 @@ function getAuthenticationUrl(scopes, clientId, clientSecret) {
 }
 
 
-function authorizeApp(url, BrowserWindow) {
+function authorizeApp(url, BrowserWindow, browserWindowParams) {
   return new Promise( (resolve, reject) => {
-    const win = new BrowserWindow({
-      'use-content-size': true
-    });
+
+    const win = new BrowserWindow(browserWindowParams || {'use-content-size': true });
 
     win.loadUrl(url);
 
@@ -47,11 +46,11 @@ function authorizeApp(url, BrowserWindow) {
   });
 }
 
-export default function electronGoogleOauth(BrowserWindow) {
+export default function electronGoogleOauth(BrowserWindow, BrowserWindowParams) {
   const exports = {
     getAuthorizationCode(scopes, clientId, clientSecret) {
       const url = getAuthenticationUrl(scopes, clientId, clientSecret);
-      return authorizeApp(url, BrowserWindow);
+      return authorizeApp(url, BrowserWindow, BrowserWindowParams);
     },
 
     async getAccessToken(scopes, clientId, clientSecret) {
