@@ -19,8 +19,7 @@ npm install --save electron-google-oauth
   // to avoid strict coupling with electron
   
   const BrowserWindowParams = {
-            width: 800,
-            height: 600,
+            'use-content-size': true,
             center: true,
             show: false,
             resizable: false,
