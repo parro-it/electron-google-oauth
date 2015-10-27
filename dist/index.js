@@ -33,9 +33,10 @@ function getAuthenticationUrl(scopes, clientId, clientSecret) {
   return url;
 }
 
-function authorizeApp(url, BrowserWindow, BrowserWindowParams) {
+function authorizeApp(url, BrowserWindow, browserWindowParams) {
   return new _Promise(function (resolve, reject) {
-    var win = new BrowserWindow(BrowserWindowParams);
+
+    var win = new BrowserWindow(browserWindowParams || { 'use-content-size': true });
 
     win.loadUrl(url);
 
