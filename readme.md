@@ -17,7 +17,20 @@ npm install --save electron-google-oauth
 
   // require BrowserWindow class all argument
   // to avoid strict coupling with electron
-  const googleOauth = electronGoogleOauth(BrowserWindow);
+  
+  const BrowserWindowParams = {
+            width: 800,
+            height: 600,
+            center: true,
+            show: false,
+            resizable: false,
+            'always-on-top': true,
+            'standard-window': true,
+            'auto-hide-menu-bar': true,
+            'node-integration': false
+        };
+  
+  const googleOauth = electronGoogleOauth(BrowserWindow, BrowserWindowParams);
 
   ( async () => {
 
