@@ -30,8 +30,8 @@
     "test-release": "export TEST_RELEASE=1 && mocha dist_test/*_test.js dist_test/**/*_test.js --require ./dist_test/_init-release",
     "build": "babel es6 --out-dir dist",
     "build-test": "babel test --out-dir dist_test",
-    "lint": "eslint es6/*.js test/*.js",
-    "check": "npm run lint && npm run build && npm run build-test && npm run test-release",
+    "lint": "lint",
+    "check": "npm run build",
     "prepublish": "npm run check"
   },
   "eslintConfig": {
