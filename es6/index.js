@@ -2,6 +2,7 @@ import google from 'googleapis';
 import { stringify } from 'querystring';
 import fetch from 'node-fetch';
 const OAuth2 = google.auth.OAuth2;
+import BrowserWindow from 'browser-window';
 
 function getAuthenticationUrl(scopes, clientId, clientSecret) {
   const oauth2Client = new OAuth2(
@@ -19,6 +20,8 @@ function getAuthenticationUrl(scopes, clientId, clientSecret) {
 
 
 function authorizeApp(url, BrowserWindow, browserWindowParams) {
+  
+
   return new Promise( (resolve, reject) => {
 
     const win = new BrowserWindow(browserWindowParams || {'use-content-size': true });
@@ -46,11 +49,17 @@ function authorizeApp(url, BrowserWindow, browserWindowParams) {
   });
 }
 
-export default function electronGoogleOauth(BrowserWindow, BrowserWindowParams) {
+export default function electronGoogleOauth(BrowserWindow, browserWindowParams) {
+  // to keep compatibility, if browserwindow arg is supplied
+  // we ignore it
+  if (BrowserWindow && browserWindowParams) {
+    browserWindowParams = BrowserWindow;
+  }
+
   const exports = {
     getAuthorizationCode(scopes, clientId, clientSecret) {
       const url = getAuthenticationUrl(scopes, clientId, clientSecret);
-      return authorizeApp(url, BrowserWindow, BrowserWindowParams);
+      return authorizeApp(url, BrowserWindow, browserWindowParams);
     },
 
     async getAccessToken(scopes, clientId, clientSecret) {

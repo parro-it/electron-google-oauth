@@ -1,11 +1,10 @@
 #!/usr/bin/env electron
 
 import ego from './index';
-import BrowserWindow from 'browser-window';
 import app from 'app';
 import yargs from 'yargs';
 
-const auth = ego(BrowserWindow);
+const auth = ego();
 const argv = yargs.argv;
 
 const preventQuit = e => e.preventDefault();

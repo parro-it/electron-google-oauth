@@ -13,23 +13,19 @@ npm install --save electron-google-oauth
 
 ```javascript
   import electronGoogleOauth from 'electron-google-oauth';
-  import BrowserWindow from 'browser-window';
 
-  // require BrowserWindow class all argument
-  // to avoid strict coupling with electron
+  const browserWindowParams = {
+      'use-content-size': true,
+      center: true,
+      show: false,
+      resizable: false,
+      'always-on-top': true,
+      'standard-window': true,
+      'auto-hide-menu-bar': true,
+      'node-integration': false
+  };
   
-  const BrowserWindowParams = {
-            'use-content-size': true,
-            center: true,
-            show: false,
-            resizable: false,
-            'always-on-top': true,
-            'standard-window': true,
-            'auto-hide-menu-bar': true,
-            'node-integration': false
-        };
-  
-  const googleOauth = electronGoogleOauth(BrowserWindow, BrowserWindowParams);
+  const googleOauth = electronGoogleOauth(browserWindowParams);
 
   ( async () => {
 
