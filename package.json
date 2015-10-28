@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "babel-runtime": "^5.8.20",
+    "eslint-plugin-react": "^3.6.3",
     "googleapis": "^2.1.3",
     "node-fetch": "^1.3.2",
     "yargs": "^3.20.0"

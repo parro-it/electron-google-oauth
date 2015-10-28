@@ -19,7 +19,7 @@ function getAuthenticationUrl(scopes, clientId, clientSecret) {
 }
 
 
-function authorizeApp(url, BrowserWindow, browserWindowParams) {
+function authorizeApp(url, __unused_BrowserWindow, browserWindowParams) {
   
 
   return new Promise( (resolve, reject) => {
@@ -49,11 +49,11 @@ function authorizeApp(url, BrowserWindow, browserWindowParams) {
   });
 }
 
-export default function electronGoogleOauth(BrowserWindow, browserWindowParams) {
+export default function electronGoogleOauth(__unused_BrowserWindow, browserWindowParams) {
   // to keep compatibility, if browserwindow arg is supplied
   // we ignore it
-  if (BrowserWindow && browserWindowParams) {
-    browserWindowParams = BrowserWindow;
+  if (__unused_BrowserWindow && browserWindowParams) {
+    browserWindowParams = __unused_BrowserWindow;
   }
 
   const exports = {
