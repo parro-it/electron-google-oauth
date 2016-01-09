@@ -16,7 +16,8 @@ app.on('ready', async () => {
     const token = await auth.getAccessToken(
       argv.scopes,
       argv.clientId,
-      argv.clientSecret
+      argv.clientSecret,
+      argv.redirectUri
     );
     process.stdout.write(JSON.stringify(token, null, 2));
   } catch(err) {

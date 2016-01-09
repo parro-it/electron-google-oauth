@@ -33,7 +33,8 @@ npm install --save electron-google-oauth
     const authCode = await googleOauth.getAuthorizationCode(
       ['https://www.google.com/m8/feeds'],
       'your-client-id',
-      'your-client-secret'
+      'your-client-secret',
+      'your-redirect_uri'
     );
     console.dir(authCode);
 
@@ -41,7 +42,8 @@ npm install --save electron-google-oauth
     const result = await googleOauth.getAccessToken(
       ['https://www.google.com/m8/feeds'],
       'your-client-id',
-      'your-client-secret'
+      'your-client-secret',
+      'your-redirect_uri'
     );
     console.dir(result);
 
