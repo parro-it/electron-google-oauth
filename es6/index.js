@@ -26,7 +26,7 @@ function authorizeApp(url, __unused_BrowserWindow, browserWindowParams) {
 
     const win = new BrowserWindow(browserWindowParams || {'use-content-size': true });
 
-    win.loadUrl(url);
+    win.loadURL(url);
 
     win.on('closed', () => {
       reject(new Error('User closed  the window'));
@@ -49,7 +49,7 @@ function authorizeApp(url, __unused_BrowserWindow, browserWindowParams) {
   });
 }
 
-export default function electronGoogleOauth(__unused_BrowserWindow, browserWindowParams) {
+export default function electronGoogleOauth(__unused_BrowserWindow, browserWindowParams, httpAgent) {
   // to keep compatibility, if browserwindow arg is supplied
   // we ignore it
   if (__unused_BrowserWindow && browserWindowParams) {
@@ -79,7 +79,8 @@ export default function electronGoogleOauth(__unused_BrowserWindow, browserWindo
           'Accept': 'application/json',
           'Content-Type': 'application/x-www-form-urlencoded'
         },
-        body: data
+        body: data,
+        agent: httpAgent
       });
 
       return await res.json();
