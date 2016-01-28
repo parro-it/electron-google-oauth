@@ -29,6 +29,7 @@
     "test": "mocha test/*_test.js test/**/*_test.js --require ./test/_init || echo failed",
     "test-release": "export TEST_RELEASE=1 && mocha dist_test/*_test.js dist_test/**/*_test.js --require ./dist_test/_init-release",
     "build": "babel es6 --out-dir dist",
+    "watch": "babel es6 --watch --out-dir dist",
     "build-test": "babel test --out-dir dist_test",
     "lint": "lint",
     "check": "npm run build",

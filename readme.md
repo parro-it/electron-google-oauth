@@ -24,7 +24,7 @@ npm install --save electron-google-oauth
       'auto-hide-menu-bar': true,
       'node-integration': false
   };
-  
+
   const googleOauth = electronGoogleOauth(browserWindowParams);
 
   ( async () => {
@@ -33,7 +33,8 @@ npm install --save electron-google-oauth
     const authCode = await googleOauth.getAuthorizationCode(
       ['https://www.google.com/m8/feeds'],
       'your-client-id',
-      'your-client-secret'
+      'your-client-secret',
+      'your-redirect-uri'
     );
     console.dir(authCode);
 
@@ -41,7 +42,8 @@ npm install --save electron-google-oauth
     const result = await googleOauth.getAccessToken(
       ['https://www.google.com/m8/feeds'],
       'your-client-id',
-      'your-client-secret'
+      'your-client-secret',
+      'your-redirect-uri'
     );
     console.dir(result);
 
@@ -53,6 +55,3 @@ npm install --save electron-google-oauth
 The MIT License (MIT)
 
 Copyright (c) 2015 Andrea Parodi
-
-
-

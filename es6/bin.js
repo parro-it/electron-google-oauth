@@ -6,7 +6,7 @@ import yargs from 'yargs';
 
 const auth = ego();
 const argv = yargs.argv;
-
+console.log(argv);
 const preventQuit = e => e.preventDefault();
 
 app.on('will-quit', preventQuit);
@@ -16,7 +16,8 @@ app.on('ready', async () => {
     const token = await auth.getAccessToken(
       argv.scopes,
       argv.clientId,
-      argv.clientSecret
+      argv.clientSecret,
+      argv.redirectUri
     );
     process.stdout.write(JSON.stringify(token, null, 2));
   } catch(err) {
