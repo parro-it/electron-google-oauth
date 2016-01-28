@@ -51,6 +51,12 @@ npm install --save electron-google-oauth
 
 ```
 
+## Testing
+Build the app, then run it:
+```
+npm run build && electron dist/bin.js --scopes 'SCOPES' --clientId 'CLIENTID' --clientSecret 'CLIENTSECRET' --redirectUri 'REDIRECTURI'
+```
+
 ## License
 The MIT License (MIT)
 
