@@ -10,7 +10,6 @@ function getAuthenticationUrl(scopes, clientId, clientSecret, redirectUri = 'urn
     clientSecret,
     redirectUri
   );
-
   const url = oauth2Client.generateAuthUrl({
     access_type: 'offline', // 'online' (default) or 'offline' (gets refresh_token)
     scope: scopes // If you only need one scope you can pass it as string
@@ -57,12 +56,12 @@ export default function electronGoogleOauth(__unused_BrowserWindow, browserWindo
   }
 
   const exports = {
-    getAuthorizationCode(scopes, clientId, clientSecret, redirectUri) {
+    getAuthorizationCode(scopes, clientId, clientSecret, redirectUri = 'urn:ietf:wg:oauth:2.0:oob') {
       const url = getAuthenticationUrl(scopes, clientId, clientSecret, redirectUri);
       return authorizeApp(url, BrowserWindow, browserWindowParams);
     },
 
-    async getAccessToken(scopes, clientId, clientSecret, redirectUri) {
+    async getAccessToken(scopes, clientId, clientSecret, redirectUri = 'urn:ietf:wg:oauth:2.0:oob') {
       const authorizationCode = await exports.getAuthorizationCode(scopes, clientId, clientSecret, redirectUri);
 
       const data = stringify({

@@ -6,7 +6,6 @@ import yargs from 'yargs';
 
 const auth = ego();
 const argv = yargs.argv;
-console.log(argv);
 const preventQuit = e => e.preventDefault();
 
 app.on('will-quit', preventQuit);
