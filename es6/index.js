@@ -5,12 +5,14 @@ const OAuth2 = google.auth.OAuth2;
 import BrowserWindow from 'browser-window';
 
 function getAuthenticationUrl(scopes, clientId, clientSecret, redirectUri) {
+  if (!redirectUri) {
+    redirectUri = 'urn:ietf:wg:oauth:2.0:oob';
+  }
   const oauth2Client = new OAuth2(
     clientId,
     clientSecret,
     redirectUri
   );
-
   const url = oauth2Client.generateAuthUrl({
     access_type: 'offline', // 'online' (default) or 'offline' (gets refresh_token)
     scope: scopes // If you only need one scope you can pass it as string
@@ -58,13 +60,15 @@ export default function electronGoogleOauth(__unused_BrowserWindow, browserWindo
 
   const exports = {
     getAuthorizationCode(scopes, clientId, clientSecret, redirectUri) {
-      const url = getAuthenticationUrl(scopes, clientId, clientSecret);
+      const url = getAuthenticationUrl(scopes, clientId, clientSecret, redirectUri);
       return authorizeApp(url, BrowserWindow, browserWindowParams);
     },
 
-    async getAccessToken(scopes, clientId, clientSecret) {
-      const authorizationCode = await exports.getAuthorizationCode(scopes, clientId, clientSecret);
-
+    async getAccessToken(scopes, clientId, clientSecret, redirectUri) {
+      const authorizationCode = await exports.getAuthorizationCode(scopes, clientId, clientSecret, redirectUri);
+      if (!redirectUri) {
+        redirectUri = 'urn:ietf:wg:oauth:2.0:oob';
+      }
       const data = stringify({
         code: authorizationCode,
         client_id: clientId,
@@ -72,7 +76,6 @@ export default function electronGoogleOauth(__unused_BrowserWindow, browserWindo
         grant_type: 'authorization_code',
         redirect_uri: redirectUri
       });
-
       const res = await fetch('https://accounts.google.com/o/oauth2/token', {
         method: 'post',
         headers: {
