@@ -1,8 +1,9 @@
 const {stringify} = require('querystring');
 const google = require('googleapis');
+const co = require('co');
 const fetch = require('node-fetch');
 // eslint-disable-next-line import/no-extraneous-dependencies
-const BrowserWindow = require('browser-window');
+const {BrowserWindow} = require('electron');
 
 const OAuth2 = google.auth.OAuth2;
 
@@ -28,12 +29,13 @@ function authorizeApp(url, __unused_BrowserWindow, browserWindowParams) {
 		win.loadURL(url);
 
 		win.on('closed', () => {
-			reject(new Error('User closed	the window'));
+			reject(new Error('User closed the window'));
 		});
 
 		win.on('page-title-updated', () => {
 			setImmediate(() => {
 				const title = win.getTitle();
+				console.log(title)
 				if (title.startsWith('Denied')) {
 					reject(new Error(title.split(/[ =]/)[2]));
 					win.removeAllListeners('closed');
@@ -48,42 +50,40 @@ function authorizeApp(url, __unused_BrowserWindow, browserWindowParams) {
 	});
 }
 
-export default function electronGoogleOauth(__unused_BrowserWindow, browserWindowParams, httpAgent) {
+module.exports = function electronGoogleOauth(__unused_BrowserWindow, browserWindowParams, httpAgent) {
 	// to keep compatibility, if browserwindow arg is supplied
 	// we ignore it
 	if (__unused_BrowserWindow && browserWindowParams) {
 		browserWindowParams = __unused_BrowserWindow;
 	}
 
-	const exports = {
-		getAuthorizationCode(scopes, clientId, clientSecret, redirectUri = 'urn:ietf:wg:oauth:2.0:oob') {
-			const url = getAuthenticationUrl(scopes, clientId, clientSecret, redirectUri);
-			return authorizeApp(url, BrowserWindow, browserWindowParams);
-		},
+	function getAuthorizationCode(scopes, clientId, clientSecret, redirectUri = 'urn:ietf:wg:oauth:2.0:oob') {
+		const url = getAuthenticationUrl(scopes, clientId, clientSecret, redirectUri);
+		return authorizeApp(url, BrowserWindow, browserWindowParams);
+	}
 
-		async getAccessToken(scopes, clientId, clientSecret, redirectUri = 'urn:ietf:wg:oauth:2.0:oob') {
-			const authorizationCode = await exports.getAuthorizationCode(scopes, clientId, clientSecret, redirectUri);
+	const getAccessToken = co.wrap(function * (scopes, clientId, clientSecret, redirectUri = 'urn:ietf:wg:oauth:2.0:oob') {
+		const authorizationCode = yield getAuthorizationCode(scopes, clientId, clientSecret, redirectUri);
 
-			const data = stringify({
-				code: authorizationCode,
-				client_id: clientId,
-				client_secret: clientSecret,
-				grant_type: 'authorization_code',
-				redirect_uri: redirectUri
-			});
+		const data = stringify({
+			code: authorizationCode,
+			client_id: clientId,
+			client_secret: clientSecret,
+			grant_type: 'authorization_code',
+			redirect_uri: redirectUri
+		});
 
-			const res = await fetch('https://accounts.google.com/o/oauth2/token', {
-				method: 'post',
-				headers: {
-					'Accept': 'application/json',
-					'Content-Type': 'application/x-www-form-urlencoded'
-				},
-				body: data,
-				agent: httpAgent
-			});
-			return await res.json();
-		}
-	};
+		const res = yield fetch('https://accounts.google.com/o/oauth2/token', {
+			method: 'post',
+			headers: {
+				'Accept': 'application/json',
+				'Content-Type': 'application/x-www-form-urlencoded'
+			},
+			body: data,
+			agent: httpAgent
+		});
+		return yield res.json();
+	});
 
-	return exports;
-}
+	return {getAuthorizationCode, getAccessToken};
+};
