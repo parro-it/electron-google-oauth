@@ -1,7 +1,0 @@
-es6
-dist_test
-test
-*.sublime-*
-.gitignore
-.editorconfig
-private

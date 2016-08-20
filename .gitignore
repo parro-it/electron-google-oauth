@@ -48,11 +48,5 @@ node_modules
 
 # Debug log from npm
 npm-debug.log
-
-
-
-dist_test
-dist
-private
-init
+private.sh
 
