@@ -22,7 +22,7 @@ function getAuthenticationUrl(scopes, clientId, clientSecret, redirectUri = 'urn
 	return url;
 }
 
-function authorizeApp(url, __unused_BrowserWindow, browserWindowParams) {
+function authorizeApp(url, browserWindowParams) {
 	return new Promise((resolve, reject) => {
 		const win = new BrowserWindow(browserWindowParams || {'use-content-size': true});
 
@@ -49,16 +49,10 @@ function authorizeApp(url, __unused_BrowserWindow, browserWindowParams) {
 	});
 }
 
-module.exports = function electronGoogleOauth(__unused_BrowserWindow, browserWindowParams, httpAgent) {
-	// to keep compatibility, if browserwindow arg is supplied
-	// we ignore it
-	if (__unused_BrowserWindow && browserWindowParams) {
-		browserWindowParams = __unused_BrowserWindow;
-	}
-
+module.exports = function electronGoogleOauth(browserWindowParams, httpAgent) {
 	function getAuthorizationCode(scopes, clientId, clientSecret, redirectUri = 'urn:ietf:wg:oauth:2.0:oob') {
 		const url = getAuthenticationUrl(scopes, clientId, clientSecret, redirectUri);
-		return authorizeApp(url, BrowserWindow, browserWindowParams);
+		return authorizeApp(url, browserWindowParams);
 	}
 
 	const getAccessToken = co.wrap(function * (scopes, clientId, clientSecret, redirectUri = 'urn:ietf:wg:oauth:2.0:oob') {
