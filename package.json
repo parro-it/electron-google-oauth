@@ -8,12 +8,8 @@
     "oauth",
     "oauth2"
   ],
-  "repository": "https://github.com/parro-it/electron-google-oauth.git",
-  "bugs": {
-    "url": "https://github.com/parro-it/electron-google-oauth/issues"
-  },
+  "repository": "parro-it/electron-google-oauth",
   "version": "1.3.1",
-  "main": "dist/index.js",
   "bin": {
     "ego": "dist/bin.js"
   },
@@ -26,7 +22,7 @@
   },
   "author": "parro-it",
   "scripts": {
-    "test": "mocha test/*_test.js test/**/*_test.js --require ./test/_init || echo failed",
+    "test": "xo",
     "test-release": "export TEST_RELEASE=1 && mocha dist_test/*_test.js dist_test/**/*_test.js --require ./dist_test/_init-release",
     "build": "babel es6 --out-dir dist",
     "watch": "babel es6 --watch --out-dir dist",
@@ -35,29 +31,19 @@
     "check": "npm run build",
     "prepublish": "npm run check"
   },
-  "eslintConfig": {
-    "extends": "eslint-config-airbnb",
-    "plugins": [
-      "babel"
-    ]
-  },
-  "babel": {
-    "stage": 0,
-    "optional": [
-      "runtime"
-    ]
-  },
   "devDependencies": {
     "babel": "^5.1.11",
     "babel-eslint": "^4.0.5",
     "chai": "^3.4.0",
     "co": "^4.5.2",
     "co-mocha": "^1.1.0",
+    "electron-prebuilt": "^1.3.3",
     "eslint": "^1.7.3",
     "eslint-config-airbnb": "0.1.0",
     "eslint-plugin-babel": "^2.1.1",
     "mocha": "^2.2.4",
-    "thenify": "^3.1.0"
+    "thenify": "^3.1.0",
+    "xo": "^0.16.0"
   },
   "license": "MIT"
 }
