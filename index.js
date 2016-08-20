@@ -35,7 +35,6 @@ function authorizeApp(url, __unused_BrowserWindow, browserWindowParams) {
 		win.on('page-title-updated', () => {
 			setImmediate(() => {
 				const title = win.getTitle();
-				console.log(title)
 				if (title.startsWith('Denied')) {
 					reject(new Error(title.split(/[ =]/)[2]));
 					win.removeAllListeners('closed');
