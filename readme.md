@@ -3,6 +3,8 @@
 Get Google api access token using an electron window
 to let the user authorize the app.
 
+[![Travis Build Status](https://img.shields.io/travis/parro-it/electron-google-oauth/master.svg)](http://travis-ci.org/parro-it/electron-google-oauth)
+
 ## Installation
 
 ```bash
