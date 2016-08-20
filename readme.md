@@ -52,12 +52,17 @@ npm install --save electron-google-oauth
 ```
 
 ## Testing
-Build the app, then run it:
-```
-npm run build && electron dist/bin.js --scopes 'SCOPES' --clientId 'CLIENTID' --clientSecret 'CLIENTSECRET' --redirectUri 'REDIRECTURI'
+
+To test the library, clone this git repo, then define CLIENTSECRET and CLIENTID environment variables holding your Google API details, then run:
+
+
+```bash
+npm install
+npm start
 ```
 
 ## License
+
 The MIT License (MIT)
 
 Copyright (c) 2015 Andrea Parodi
