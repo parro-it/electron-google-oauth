@@ -19,7 +19,6 @@ npm install --save electron-google-oauth
   const browserWindowParams = {
       'use-content-size': true,
       center: true,
-      show: false,
       resizable: false,
       'always-on-top': true,
       'standard-window': true,
